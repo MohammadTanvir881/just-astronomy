@@ -13,6 +13,7 @@ import {
   FaUsers,
   FaEnvelope,
   FaUserPlus,
+  FaHome,
 } from "react-icons/fa";
 
 interface NavItem {
@@ -31,6 +32,11 @@ export default function Navbar() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const navItems: NavItem[] = [
+    {
+      name: "Home",
+      icon: <FaHome className="mr-2" />,
+      href: "/",
+    },
     {
       name: "About",
       icon: <FaUserAstronaut className="mr-2" />,
@@ -82,9 +88,9 @@ export default function Navbar() {
         scrolled ? "py-2" : "py-3"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className=" container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* Logo - Left side */}
           <Link href="/" className="flex-shrink-0 flex items-center group">
             <FaStar
               className={`text-amber-400 transition-all duration-300 ${
@@ -100,67 +106,69 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            {navItems.map((item) => (
-              <div key={item.name} className="relative group">
-                {item.submenu ? (
-                  <>
-                    <button
-                      className="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors relative"
-                      onMouseEnter={() => setOpenDropdown(item.name)}
-                      onMouseLeave={() => setOpenDropdown(null)}
+          {/* Desktop Navigation - Center */}
+          <div className="hidden md:flex items-center justify-center flex-1 mx-8">
+            <div className="flex items-center space-x-1">
+              {navItems.map((item) => (
+                <div key={item.name} className="relative group">
+                  {item.submenu ? (
+                    <>
+                      <button
+                        className="text-slate-300 mt-0 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors"
+                        onMouseEnter={() => setOpenDropdown(item.name)}
+                        onMouseLeave={() => setOpenDropdown(null)}
+                      >
+                        {item.icon}
+                        <span className="relative">
+                          {item.name}
+                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+                        </span>
+                        <FaChevronDown className="ml-1 text-xs" />
+                      </button>
+
+                      {openDropdown === item.name && (
+                        <div
+                          className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-slate-800 ring-1 ring-slate-700 z-50"
+                          onMouseEnter={() => setOpenDropdown(item.name)}
+                          onMouseLeave={() => setOpenDropdown(null)}
+                        >
+                          <div className="py-1">
+                            {item.submenu.map((subItem) => (
+                              <Link
+                                key={subItem.name}
+                                href={subItem.href}
+                                className="px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200 flex items-center"
+                              >
+                                <FaChevronRight className="mr-2 text-xs" />
+                                {subItem.name}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center relative group"
                     >
                       {item.icon}
                       <span className="relative">
                         {item.name}
                         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
                       </span>
-                      <FaChevronDown className="ml-1 text-xs" />
-                    </button>
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
 
-                    {openDropdown === item.name && (
-                      <div
-                        className="absolute left-0  w-48 rounded-md shadow-lg bg-slate-800 ring-1 ring-slate-700 z-50 animate-fade-in"
-                        onMouseEnter={() => setOpenDropdown(item.name)}
-                        onMouseLeave={() => setOpenDropdown(null)}
-                      >
-                        <div className="py-1">
-                          {item.submenu.map((subItem) => (
-                            <Link
-                              key={subItem.name}
-                              href={subItem.href}
-                              className=" px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200 flex items-center relative group"
-                            >
-                              <FaChevronRight className="mr-2 text-xs" />
-                              <span className="relative">
-                                {subItem.name}
-                                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-                              </span>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center relative group"
-                  >
-                    {item.icon}
-                    <span className="relative">
-                      {item.name}
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-                    </span>
-                  </Link>
-                )}
-              </div>
-            ))}
-
+          {/* CTA Button - Right side */}
+          <div className="hidden md:block">
             <Link
               href="#join"
-              className="ml-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:from-amber-600 hover:to-amber-700 transition-all shadow-lg hover:shadow-amber-500/20 flex items-center"
+              className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:from-amber-600 hover:to-amber-700 transition-all shadow-lg hover:shadow-amber-500/20 flex items-center"
             >
               <FaUserPlus className="mr-2" />
               Join Us
@@ -201,14 +209,11 @@ export default function Navbar() {
                         openDropdown === item.name ? null : item.name
                       )
                     }
-                    className="w-full text-left text-slate-300 hover:text-white px-3 py-2 rounded-md text-base font-medium flex items-center justify-between relative group"
+                    className="w-full text-left text-slate-300 hover:text-white px-3 py-2 rounded-md text-base font-medium flex items-center justify-between"
                   >
-                    <span className="flex items-center relative">
+                    <span className="flex items-center">
                       {item.icon}
-                      <span className="relative">
-                        {item.name}
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-                      </span>
+                      {item.name}
                     </span>
                     <FaChevronDown
                       className={`text-xs transition-transform ${
@@ -223,14 +228,11 @@ export default function Navbar() {
                         <Link
                           key={subItem.name}
                           href={subItem.href}
-                          className="px-3 py-2 rounded-md text-sm text-slate-300 hover:text-white hover:bg-slate-700/30 transition-colors duration-200 flex items-center relative group"
+                          className="px-3 py-2 rounded-md text-sm text-slate-300 hover:text-white hover:bg-slate-700/30 transition-colors duration-200 flex items-center"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           <FaChevronRight className="mr-2 text-xs" />
-                          <span className="relative">
-                            {subItem.name}
-                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-                          </span>
+                          {subItem.name}
                         </Link>
                       ))}
                     </div>
@@ -239,14 +241,11 @@ export default function Navbar() {
               ) : (
                 <Link
                   href={item.href}
-                  className="px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 transition-colors duration-200 flex items-center relative group"
+                  className="px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 transition-colors duration-200 flex items-center"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.icon}
-                  <span className="relative">
-                    {item.name}
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-                  </span>
+                  {item.name}
                 </Link>
               )}
             </div>
