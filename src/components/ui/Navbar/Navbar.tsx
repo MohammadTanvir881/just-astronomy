@@ -70,7 +70,7 @@ export default function Navbar() {
     {
       name: "Contact",
       icon: <FaEnvelope className="mr-2" />,
-      href: "#contact",
+      href: "/contact",
     },
   ];
 
