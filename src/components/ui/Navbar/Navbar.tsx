@@ -114,7 +114,7 @@ export default function Navbar() {
                   {item.submenu ? (
                     <>
                       <button
-                        className="text-slate-300 mt-0 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors"
+                        className="text-slate-300  hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors"
                         onMouseEnter={() => setOpenDropdown(item.name)}
                         onMouseLeave={() => setOpenDropdown(null)}
                       >
@@ -167,11 +167,11 @@ export default function Navbar() {
           {/* CTA Button - Right side */}
           <div className="hidden md:block">
             <Link
-              href="#join"
+              href="/login"
               className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:from-amber-600 hover:to-amber-700 transition-all shadow-lg hover:shadow-amber-500/20 flex items-center"
             >
               <FaUserPlus className="mr-2" />
-              Join Us
+              Login
             </Link>
           </div>
 
@@ -252,12 +252,12 @@ export default function Navbar() {
           ))}
 
           <Link
-            href="#join"
+            href="/login"
             className="mt-4 ml-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:from-amber-600 hover:to-amber-700 transition-all w-fit flex items-center"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <FaUserPlus className="mr-2" />
-            Join Our Club
+            Login
           </Link>
         </div>
       </div>
