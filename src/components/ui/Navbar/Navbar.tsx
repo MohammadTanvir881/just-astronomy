@@ -9,8 +9,9 @@ import {
   FaChevronDown,
   FaChevronRight,
   FaUserPlus,
-  FaHome,
 } from "react-icons/fa";
+import { useUser } from "@/context/userContext";
+import { logoutUser } from "@/services/AuthServices";
 
 interface NavItem {
   name: string;
@@ -26,6 +27,16 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const { user, setIsLoading } = useUser();
+  console.log(user);
+  useEffect(() => {
+    setIsLoading(true);
+  }, []);
+
+  const handleLogout = () => {
+    logoutUser();
+    setIsLoading(true);
+  };
 
   const navItems: NavItem[] = [
     {
@@ -44,10 +55,15 @@ export default function Navbar() {
       name: "Megazine",
       href: "#events",
     },
-    {
-      name: "Dashboard",
-      href: "/dashboard",
-    },
+    // Admin-only item
+    ...(user?.role === "admin"
+      ? [
+          {
+            name: "Dashboard",
+            href: "/dashboard",
+          },
+        ]
+      : []),
     {
       name: "Library",
       href: "#gallery",
@@ -187,13 +203,23 @@ export default function Navbar() {
 
           {/* CTA Button - Right side */}
           <div className="hidden md:block">
-            <Link
-              href="/login"
-              className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:from-amber-600 hover:to-amber-700 transition-all shadow-lg hover:shadow-amber-500/20 flex items-center"
-            >
-              <FaUserPlus className="mr-2" />
-              Login
-            </Link>
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:from-amber-600 hover:to-amber-700 transition-all shadow-lg hover:shadow-amber-500/20 flex items-center"
+              >
+                <FaUserPlus className="mr-2" />
+                Logout
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:from-amber-600 hover:to-amber-700 transition-all shadow-lg hover:shadow-amber-500/20 flex items-center"
+              >
+                <FaUserPlus className="mr-2" />
+                Login
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}

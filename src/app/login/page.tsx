@@ -7,33 +7,50 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { loginUser } from "@/services/AuthServices";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 function AstronomyLogin() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const starsContainerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
-    
-    console.log("Login attempt:", { email, password });
+
+    const userData = { email, password };
+    // console.log(userData);
+    try {
+      const res = await loginUser(userData);
+      console.log(res);
+      if (res.success) {
+        toast.success(res.message);
+        router.push("/");
+      } else {
+        toast.error(res.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     if (!starsContainerRef.current) return;
 
     // Clear existing stars
-    starsContainerRef.current.innerHTML = '';
+    starsContainerRef.current.innerHTML = "";
 
     // Create twinkling stars
     const starCount = 150;
     const container = starsContainerRef.current;
 
     for (let i = 0; i < starCount; i++) {
-      const star = document.createElement('div');
-      star.className = 'absolute rounded-full bg-white animate-twinkle';
+      const star = document.createElement("div");
+      star.className = "absolute rounded-full bg-white animate-twinkle";
 
       // Random properties
       const size = Math.random() * 2 + 1;
@@ -57,10 +74,10 @@ function AstronomyLogin() {
     <div className="relative flex min-h-screen w-full items-center justify-center bg-[url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=1471&auto=format&fit=crop')] bg-cover bg-center bg-no-repeat p-4 overflow-hidden">
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/50 z-0" />
-      
+
       {/* Twinkling stars */}
-      <div 
-        ref={starsContainerRef} 
+      <div
+        ref={starsContainerRef}
         className="absolute inset-0 z-10 pointer-events-none"
       />
 
@@ -111,7 +128,12 @@ function AstronomyLogin() {
             <p className="text-center text-sm text-white/80">
               If you don't have an account, please contact the club president
             </p>
-           <Link href="/"> <p className="text-gray-200 text-sm text-center hover:underline">Return Home</p></Link>
+            <Link href="/">
+              {" "}
+              <p className="text-gray-200 text-sm text-center hover:underline">
+                Return Home
+              </p>
+            </Link>
           </form>
         </CardContent>
       </Card>
@@ -119,8 +141,13 @@ function AstronomyLogin() {
       {/* Add the animation style */}
       <style jsx global>{`
         @keyframes twinkle {
-          0%, 100% { opacity: 0.2; }
-          50% { opacity: 1; }
+          0%,
+          100% {
+            opacity: 0.2;
+          }
+          50% {
+            opacity: 1;
+          }
         }
         .animate-twinkle {
           animation: twinkle linear infinite;
