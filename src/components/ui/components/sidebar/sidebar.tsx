@@ -221,7 +221,7 @@ export function SidebarNav() {
 
 export default function DashboardPage() {
   return (
-    <div className="lg:min-h-screen bg-slate-900 text-slate-100">
+    <div className="lg:min-h-screen lg:fixed bg-slate-900 text-slate-100">
       {/* Mobile Header */}
       <header className="lg:hidden bg-slate-800 p-4 flex items-center justify-between sticky top-0 z-50 border-b border-slate-700">
         <h1 className="text-xl font-bold px-4 py-2">Astronomy Club</h1>
