@@ -14,6 +14,7 @@ import {
   ChevronDown,
   ChevronRight,
   User,
+  FileStackIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -153,6 +154,43 @@ export function SidebarNav() {
               className="w-full justify-start pl-8"
             >
               <Link href="/dashboard/executives">All Executives</Link>
+            </Button>
+          </CollapsibleMenu>
+          <CollapsibleMenu
+            title="Manage Programme"
+            icon={<FileStackIcon className="h-4 w-4" />}
+          >
+            <Button
+              asChild
+              variant="ghost"
+              className="w-full justify-start pl-8"
+            >
+              <Link href="/dashboard/executives/create">
+                Add School Programme
+              </Link>
+            </Button>
+            <Button
+              asChild
+              variant="ghost"
+              className="w-full justify-start pl-8"
+            >
+              <Link href="/dashboard/executives/create">
+                All School Programme
+              </Link>
+            </Button>
+            <Button
+              asChild
+              variant="ghost"
+              className="w-full justify-start pl-8"
+            >
+              <Link href="/dashboard/executives/create">Add Webiner</Link>
+            </Button>
+            <Button
+              asChild
+              variant="ghost"
+              className="w-full justify-start pl-8"
+            >
+              <Link href="/dashboard/executives">All Webiner</Link>
             </Button>
           </CollapsibleMenu>
 
