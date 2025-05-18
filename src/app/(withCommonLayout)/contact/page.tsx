@@ -61,9 +61,9 @@ function ContactPage() {
           transition={{ duration: 0.8 }}
           className="container relative z-10 mx-auto px-4 mt-8 md:mt-10"
         >
-          <div className="max-w-3xl mx-auto text-center px-2">
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-300">
-              Contact Our Astronomy Club
+          <div className="max-w-3xl  mx-auto text-center px-2">
+            <h1 className="text-3xl  mt-20 lg:mt-16 md:text-5xl font-bold mb-4 md:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-300">
+              Contact Us
             </h1>
             <motion.p 
               initial={{ opacity: 0 }}

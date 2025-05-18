@@ -1,24 +1,20 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FaBagShopping } from "react-icons/fa6";
 import {
   FaStar,
   FaBars,
   FaTimes,
   FaChevronDown,
   FaChevronRight,
-  FaUserAstronaut,
-  FaCalendarAlt,
-  FaImage,
-  FaUsers,
-  FaEnvelope,
   FaUserPlus,
   FaHome,
 } from "react-icons/fa";
 
 interface NavItem {
   name: string;
-  icon: React.ReactNode;
   href: string;
   submenu?: {
     name: string;
@@ -27,6 +23,7 @@ interface NavItem {
 }
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -34,45 +31,44 @@ export default function Navbar() {
   const navItems: NavItem[] = [
     {
       name: "Home",
-      icon: <FaHome className="mr-2" />,
       href: "/",
     },
     {
-      name: "About",
-      icon: <FaUserAstronaut className="mr-2" />,
+      name: "Activities",
       href: "#about",
       submenu: [
-        { name: "Our Mission", href: "#mission" },
-        { name: "History", href: "#history" },
-        { name: "Facilities", href: "#facilities" },
+        { name: "School Programme", href: "#mission" },
+        { name: "Online Webiner", href: "#history" },
       ],
     },
     {
-      name: "Events",
-      icon: <FaCalendarAlt className="mr-2" />,
+      name: "Megazine",
       href: "#events",
-      submenu: [
-        { name: "Star Parties", href: "#star-parties" },
-        { name: "Lectures", href: "#lectures" },
-        { name: "Workshops", href: "#workshops" },
-      ],
     },
     {
-      name: "Gallery",
-      icon: <FaImage className="mr-2" />,
+      name: "Library",
       href: "#gallery",
     },
     {
-      name: "Team",
-      icon: <FaUsers className="mr-2" />,
+      name: "Shop",
+      href: "#gallery",
+    },
+    {
+      name: "Executives",
       href: "#team",
     },
     {
       name: "Contact",
-      icon: <FaEnvelope className="mr-2" />,
       href: "/contact",
     },
   ];
+
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === href;
+    }
+    return pathname.startsWith(href);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -114,16 +110,25 @@ export default function Navbar() {
                   {item.submenu ? (
                     <>
                       <button
-                        className="text-slate-300  hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors"
+                        className={`${
+                          isActive(item.href)
+                            ? "text-amber-400"
+                            : "text-slate-300 hover:text-white"
+                        } px-3 py-2 rounded-md text-sm font-medium transition-colors`}
                         onMouseEnter={() => setOpenDropdown(item.name)}
                         onMouseLeave={() => setOpenDropdown(null)}
                       >
-                        {item.icon}
                         <span className="relative">
                           {item.name}
-                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+                          <span
+                            className={`absolute bottom-0 left-0 w-0 h-0.5 ${
+                              isActive(item.href)
+                                ? "bg-amber-400 w-full"
+                                : "bg-white"
+                            } transition-all duration-300 group-hover:w-full`}
+                          ></span>
                         </span>
-                        <FaChevronDown className="ml-1 text-xs" />
+                        <FaChevronDown className="ml-1 text-xs inline" />
                       </button>
 
                       {openDropdown === item.name && (
@@ -137,7 +142,11 @@ export default function Navbar() {
                               <Link
                                 key={subItem.name}
                                 href={subItem.href}
-                                className="px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200 flex items-center"
+                                className={`px-4 py-2 text-sm ${
+                                  isActive(subItem.href)
+                                    ? "text-amber-400"
+                                    : "text-slate-300 hover:text-white"
+                                } hover:bg-slate-700 transition-colors duration-200 flex items-center`}
                               >
                                 <FaChevronRight className="mr-2 text-xs" />
                                 {subItem.name}
@@ -150,12 +159,21 @@ export default function Navbar() {
                   ) : (
                     <Link
                       href={item.href}
-                      className="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center relative group"
+                      className={`${
+                        isActive(item.href)
+                          ? "text-amber-400"
+                          : "text-slate-300 hover:text-white"
+                      } px-3 py-2 rounded-md text-sm font-medium relative group`}
                     >
-                      {item.icon}
                       <span className="relative">
                         {item.name}
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+                        <span
+                          className={`absolute bottom-0 left-0 w-0 h-0.5 ${
+                            isActive(item.href)
+                              ? "bg-amber-400 w-full"
+                              : "bg-white"
+                          } transition-all duration-300 group-hover:w-full`}
+                        ></span>
                       </span>
                     </Link>
                   )}
@@ -209,12 +227,13 @@ export default function Navbar() {
                         openDropdown === item.name ? null : item.name
                       )
                     }
-                    className="w-full text-left text-slate-300 hover:text-white px-3 py-2 rounded-md text-base font-medium flex items-center justify-between"
+                    className={`w-full text-left ${
+                      isActive(item.href)
+                        ? "text-amber-400"
+                        : "text-slate-300 hover:text-white"
+                    } px-3 py-2 rounded-md text-base font-medium flex items-center justify-between`}
                   >
-                    <span className="flex items-center">
-                      {item.icon}
-                      {item.name}
-                    </span>
+                    <span>{item.name}</span>
                     <FaChevronDown
                       className={`text-xs transition-transform ${
                         openDropdown === item.name ? "rotate-180" : ""
@@ -228,7 +247,11 @@ export default function Navbar() {
                         <Link
                           key={subItem.name}
                           href={subItem.href}
-                          className="px-3 py-2 rounded-md text-sm text-slate-300 hover:text-white hover:bg-slate-700/30 transition-colors duration-200 flex items-center"
+                          className={`px-3 py-2 rounded-md text-sm ${
+                            isActive(subItem.href)
+                              ? "text-amber-400"
+                              : "text-slate-300 hover:text-white"
+                          } hover:bg-slate-700/30 transition-colors duration-200 flex items-center`}
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           <FaChevronRight className="mr-2 text-xs" />
@@ -241,10 +264,13 @@ export default function Navbar() {
               ) : (
                 <Link
                   href={item.href}
-                  className="px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 transition-colors duration-200 flex items-center"
+                  className={`px-3 py-2 rounded-md text-base font-medium ${
+                    isActive(item.href)
+                      ? "text-amber-400"
+                      : "text-slate-300 hover:text-white"
+                  } hover:bg-slate-700/50 transition-colors duration-200`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {item.icon}
                   {item.name}
                 </Link>
               )}

@@ -73,10 +73,11 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
             >
-              <span className="block">Discover the</span>
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-amber-400 bg-clip-text text-transparent">
-                Universe Together
-              </span>
+              <span className='block bg-gradient-to-r from-blue-400 via-purple-400 to-amber-400 bg-clip-text lg:text-[53px] mb-3 text-transparent'>Jamal Nazrul Islam Astronomy Club</span>
+              <span className="text-xl mt-3 lg:text-3xl bg-gradient-to-r from-blue-400 via-purple-400 to-amber-400 bg-clip-text text-transparent">Discover the  Universe Together</span>
+              {/* <span className="text-3xl">
+               
+              </span> */}
             </motion.h1>
 
             {/* Subtitle */}
@@ -84,7 +85,7 @@ export default function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-8"
+              className="text-lg md:text-xl text-slate-300 max-w-2xl  mx-auto mb-8"
             >
               Join JUST Astronomy Club for stargazing sessions, cosmic workshops, and 
               interstellar exploration under the guidance of expert astronomers.
