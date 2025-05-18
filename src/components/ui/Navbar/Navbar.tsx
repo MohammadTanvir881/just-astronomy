@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaBagShopping } from "react-icons/fa6";
 import {
   FaStar,
   FaBars,
@@ -44,6 +43,10 @@ export default function Navbar() {
     {
       name: "Megazine",
       href: "#events",
+    },
+    {
+      name: "Dashboard",
+      href: "/dashboard",
     },
     {
       name: "Library",
