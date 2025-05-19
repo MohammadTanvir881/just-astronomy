@@ -28,6 +28,7 @@ export const loginUser = async (userData: FieldValues) => {
   };
 
 
+
 // logout user
 export const logoutUser = async () => {
     try {
@@ -38,6 +39,24 @@ export const logoutUser = async () => {
     }
   };
 
+  // get all users
+  export const getAllUsers = async () => {
+    try {
+      const res = await fetch(`${process.env.BACKEND_URL}/users`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store',
+      });
+  
+      const result = await res.json();
+  
+      return result;
+    } catch (err: any) {
+      return Error(err);
+    }
+  };
 export const getCurrentUser = async () => {
     const accessToken = (await cookies()).get('token')?.value;
     let decodedData = null;
