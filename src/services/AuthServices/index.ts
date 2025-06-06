@@ -41,11 +41,13 @@ export const logoutUser = async () => {
 
   // get all users
   export const getAllUsers = async () => {
+    const token = (await cookies()).get('token')?.value;
     try {
       const res = await fetch(`${process.env.BACKEND_URL}/users`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         cache: 'no-store',
       });

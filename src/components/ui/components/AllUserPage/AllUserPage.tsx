@@ -24,6 +24,7 @@ import {
   };
   
   function MembersTable({ members }: { members: Member[] }) {
+    console.log("Members:", members);
     const handleUpdate = (member: Member) => {
       // Add your update logic here
       console.log("Update member:", member);
@@ -56,7 +57,7 @@ import {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {members.map((member) => (
+                {members?.map((member) => (
                   <TableRow
                     key={member.email}
                     className="border-0 hover:bg-slate-800/30 transition-colors"
