@@ -98,7 +98,7 @@ export function SidebarNav() {
           </CollapsibleMenu>
 
           <CollapsibleMenu
-            title="Manage Blogs"
+            title="Manage Blooks"
             icon={<FileText className="h-4 w-4" />}
           >
             <Button
@@ -106,14 +106,14 @@ export function SidebarNav() {
               variant="ghost"
               className="w-full justify-start pl-8"
             >
-              <Link href="/dashboard/blogs/create">Create Blog</Link>
+              <Link href="/dashboard/books/create">Create Books</Link>
             </Button>
             <Button
               asChild
               variant="ghost"
               className="w-full justify-start pl-8"
             >
-              <Link href="/dashboard/blogs">All Blogs</Link>
+              <Link href="/dashboard/books">All Books</Link>
             </Button>
           </CollapsibleMenu>
 
